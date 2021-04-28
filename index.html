@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
+
+<script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+
+</head>
+
+<body>
+
+<div id="content"></div>
+
+<center id="online_box"></center>
+
+<script>
+
+// 初始化io对象
+
+var socket = io('http://47.93.223.115:2120');
+
+// uid 可以为网站用户的uid，作为例子这里用session_id代替
+
+var uid = Date.parse(new Date());
+
+// 连接后登录
+
+socket.on('connect', function(){
+
+    socket.emit('login', uid);
+
+});
+
+// 后端推送来消息时
+
+socket.on('new_msg', function(msg){
+
+     $('#content').html(msg);
+
+     $('.notification.sticky').notify();
+
+});
+
+// 后端推送来在线数据时
+
+socket.on('update_online_count', function(online_stat){
+
+    $('#online_box').html(online_stat);
+
+});
+
+</script>
+
+</body>
+
+</html>
