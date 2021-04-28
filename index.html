@@ -18,6 +18,8 @@
 
 <body>
 
+<p id="udd"></p>
+
 <div id="content"></div>
 
 <center id="online_box"></center>
@@ -31,6 +33,8 @@ var socket = io('http://47.93.223.115:2120');
 // uid 可以为网站用户的uid，作为例子这里用session_id代替
 
 var uid = Date.parse(new Date());
+
+$('#udd').html('您的uid为：' + uid);
 
 // 连接后登录
 
